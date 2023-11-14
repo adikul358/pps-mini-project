@@ -1,17 +1,7 @@
-# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
-
-# dependencies
 /node_modules
 /.pnp
 .pnp.js
 
-# testing
-/coverage
-
-# production
-/build
-
-# misc
 .DS_Store
 .env.local
 .env.development.local
@@ -23,3 +13,12 @@ yarn-debug.log*
 yarn-error.log*
 
 bun.lockb
+
+frontend/node_modules
+frontend/build
+
+
+backend/__pycache__
+backend/lib
+backend/data
+backend/bin
