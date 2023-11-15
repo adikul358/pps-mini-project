@@ -20,5 +20,6 @@ frontend/build
 
 backend/__pycache__
 backend/lib
+backend/include
 backend/data
 backend/bin
