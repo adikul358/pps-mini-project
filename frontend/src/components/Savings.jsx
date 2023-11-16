@@ -58,7 +58,7 @@ function Savings(props) {
         <div className="bg-slate-200 flex flex-col w-full py-3">
           {data.transactions.toReversed().map((v,i) => (
             <div className="flex flex-row py-2 px-20">
-              <span className="pr-6">{i+1}.</span>
+              <span className="w-12">{i+1}.</span>
               <span className="flex-grow pr-3">{v.datetime}</span>
               <span className={`${v.value > 0 ? "text-green-600" : "text-red-600"} pl-6`}>{v.value > 0 ? "+" : "-"}₹{Number(Math.abs(v.value)).toLocaleString('en-in', {minimumFractionDigits: 2})}</span>
             </div>

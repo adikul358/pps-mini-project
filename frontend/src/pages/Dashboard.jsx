@@ -23,6 +23,7 @@ function Dashboard() {
     .catch(function (err) {
       console.log(err);
     });
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   function signout() {
@@ -34,7 +35,7 @@ function Dashboard() {
   return (
     <>
 
-    <div className="py-2 bg-blue-200 text-blue-600">
+    <div className="sticky top-[56px] backdrop-blur py-2 bg-blue-200/75 text-blue-600">
       <div className="w-full max-w-5xl mx-auto flex flex-row gap-x-3 justify-end">
         <span>Acc. No. {cookie.accno}</span> <span>|</span> <span onClick={signout} className="underline hover:no-underline cursor-pointer">Sign out</span>
       </div>
