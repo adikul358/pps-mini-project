@@ -21,6 +21,7 @@ function About() {
             <span className="text-md font-light">TailwindCSS v3.3.5</span>
             <span className="text-md font-light">Axios v1.6.2</span>
             <span className="text-md font-light">Flask v3.0.0</span>
+            <span className="text-md font-light">Flask CORS v4.0.0</span>
           </div>
         </div>     
       </div>
