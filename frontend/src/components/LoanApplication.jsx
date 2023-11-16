@@ -1,4 +1,6 @@
+import axios from "axios";
 import { useState } from "react";
+import { useCookies } from "react-cookie";
 import { FaPlus, FaArrowRight, FaHome, FaCar, FaGraduationCap, FaSuitcase } from "react-icons/fa";
 import Modal from 'react-modal';
 
@@ -10,24 +12,39 @@ const RATES = {
 }
 
 function calculateEMI(p, r, n) {
-  if (!p || !r || !n) { return "--.--"}
+  if (!p || !r || !n) { return [null,"--.--"]}
   r /= 1200
   let emi = p * r * (1+r)**n / ((1+r)**n - 1)
-  return (Math.round(emi*100) / 100).toFixed(2)
+  return [(Math.round(emi*100) / 100).toFixed(2), Number((Math.round(emi*100) / 100)).toLocaleString('en-in', {minimumFractionDigits: 2})]
 }
 
-function LoanApplication() {
+function LoanApplication(props) {
+  let { setData } = props
 
   const [ openMod, setOpenMod ] = useState(false)
   const [ val, setVal ] = useState("")
   const [ cat, setCat ] = useState("")
   const [ mon, setMon ] = useState("")
 
+  const [ cookie ] = useCookies(["accno"])
   function loanModal(cat) {
     setVal("")
     setMon("")
     setCat(cat)
     setOpenMod(true)
+  }
+
+  function submitAction() {
+    axios.post(`http://localhost:3001/loan`, { 
+      accno: cookie.accno, 
+      type: cat,
+      value: val, 
+      emi: calculateEMI(val, RATES[cat], mon)[0]
+    })
+      .then(function (res) {
+        setData(res.data)
+        setOpenMod(false)
+      })
   }
 
   return (
@@ -63,8 +80,8 @@ function LoanApplication() {
         <input placeholder="Amount" value={val} onChange={(e) => setVal(e.target.value)} className="mt-3 p-3 w-full bg-white text-slate-800 text-lg rounded-lg cursor-pointer hover:outline-slate-500 focus:outline-slate-500 outline-1 outline outline-slate-300" />
         <input placeholder="Months" value={mon} onChange={(e) => setMon(e.target.value)} className="mt-3 p-3 w-full bg-white text-slate-800 text-lg rounded-lg cursor-pointer hover:outline-slate-500 focus:outline-slate-500 outline-1 outline outline-slate-300" />
         <div className="flex flex-row justify-between items-center mt-8">
-          <span className="text-xl font-semibold">EMI: <span className="text-blue-600">₹{calculateEMI(val, RATES[cat], mon)}</span></span>
-          <button onClick={_ => setOpenMod(false)} className="ml-auto py-3 px-16 bg-blue-500 text-white text-lg rounded-lg cursor-pointer hover:bg-blue-600 flex flex-row gap-x-3 items-center">Apply <FaArrowRight /></button>
+          <span className="text-xl font-semibold">EMI: <span className="text-blue-600">₹{calculateEMI(val, RATES[cat], mon)[1]}</span></span>
+          <button onClick={submitAction} className="ml-auto py-3 px-16 bg-blue-500 text-white text-lg rounded-lg cursor-pointer hover:bg-blue-600 flex flex-row gap-x-3 items-center">Apply <FaArrowRight /></button>
         </div>
     </Modal>
 

@@ -2,10 +2,12 @@ import os
 import json
 import random
 from flask import Flask, request
+from flask_cors import CORS, cross_origin
 from datetime import datetime, timedelta
 import pytz
 app = Flask(__name__)
-
+cors = CORS(app)
+app.config['CORS_HEADERS'] = 'Content-Type'
 
 
 
@@ -17,6 +19,7 @@ app = Flask(__name__)
 
 
 @app.route('/signup', methods=['POST'])
+@cross_origin()
 def sign_up():
     n = f'50100{random.randrange(100000000, 999999999)}'
     existing_files = os.listdir("data")
@@ -35,6 +38,7 @@ def sign_up():
 
 
 @app.route('/signin', methods=['POST'])
+@cross_origin()
 def sign_in():
     n = request.json["accno"]
     try:
@@ -57,9 +61,10 @@ def sign_in():
 
 
 @app.route('/deposit', methods=['POST'])
+@cross_origin()
 def deposit():
     n = request.json["accno"]
-    v = int(request.json["value"])
+    v = float(request.json["value"])
     try:
         acc_file = open(f'data/{n}.json', 'r')
         data = json.loads(acc_file.read())
@@ -81,9 +86,10 @@ def deposit():
 
 
 @app.route('/withdraw', methods=['POST'])
+@cross_origin()
 def withdraw():
     n = request.json["accno"]
-    v = int(request.json["value"])
+    v = float(request.json["value"])
     try:
         acc_file = open(f'data/{n}.json', 'r')
         data = json.loads(acc_file.read())
@@ -112,11 +118,12 @@ def withdraw():
 
 
 @app.route('/loan', methods=['POST'])
+@cross_origin()
 def loan():
     n = request.json["accno"]
     t = request.json["type"]
-    v = int(request.json["value"])
-    e = int(request.json["emi"])
+    v = float(request.json["value"])
+    e = float(request.json["emi"])
     try:
         acc_file = open(f'data/{n}.json', 'r')
         data = json.loads(acc_file.read())
@@ -125,7 +132,7 @@ def loan():
             "type": t,
             "value": v,
             "emi": e,
-            "start_datetime": datetime.now(pytz.timezone('Asia/Kolkata')).strftime("%Y-%m-%d %H:%M"),
+            "start_date": datetime.now(pytz.timezone('Asia/Kolkata')).strftime("%Y-%m-%d %H:%M"),
             "payments": [],
         })
         acc_file = open(f'data/{n}.json', 'w')
@@ -140,17 +147,18 @@ def loan():
 
 
 @app.route('/loanpayment', methods=['POST'])
+@cross_origin()
 def loanpayment():
     n = request.json["accno"]
     i = int(request.json["index"])
-    v = int(request.json["value"])
+    v = float(request.json["value"])
     try:
         acc_file = open(f'data/{n}.json', 'r')
         data = json.loads(acc_file.read())
         acc_file.close()
         data["loans"][i]["payments"].append({
             "value": v,
-            "datetime": datetime.now(pytz.timezone('Asia/Kolkata')).strftime("%Y-%m-%d %H:%M")
+            "datetime": datetime.now(pytz.timezone('Asia/Kolkata')).strftime("%Y-%m-%d")
         })
         acc_file = open(f'data/{n}.json', 'w')
         acc_file.write(json.dumps(data, sort_keys=True, indent=4))

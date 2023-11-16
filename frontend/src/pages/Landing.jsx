@@ -1,7 +1,15 @@
 import { FaUserPlus, FaUser } from "react-icons/fa";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { useCookies } from "react-cookie";
+import { useEffect } from "react";
 
 function Landing() {
+	const [cookie] = useCookies(["accno"])
+  const navigate = useNavigate()
+  useEffect(_ => {
+    if (!!cookie.accno) { navigate("/dashboard") }
+	}, [])
+
   return (
 		<div className="h-screen flex justify-center items-center -mt-[56px]">
 			<div className="p-20 w-full max-w-5xl rounded-lg shadow-lg grid grid-cols-2 gap-x-12 bg-slate-100">

@@ -1,4 +1,8 @@
 import { Link, Outlet } from "react-router-dom"
+import { CookiesProvider } from 'react-cookie';
+import axios from "axios";
+
+axios.defaults.headers.post['Content-Type'] = 'application/json';
 
 function App() {
   return (
@@ -10,7 +14,9 @@ function App() {
         </div>
       </div>
 
-      <Outlet />
+      <CookiesProvider>
+        <Outlet />
+      </CookiesProvider>
 
     </div>
   );

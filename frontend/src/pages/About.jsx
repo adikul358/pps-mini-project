@@ -13,12 +13,13 @@ function About() {
           <div className="flex flex-col opacity-50">
             <span className="text-xl font-semibold">Open-Source Libraries</span>
             <span className="text-md font-light">React v18.2.0</span>
-            <span className="text-md font-light">react-dom v18.2.0</span>
-            <span className="text-md font-light">react-icons v4.12.0</span>
-            <span className="text-md font-light">react-router-dom v6.18.0</span>
+            <span className="text-md font-light">React Icons v4.12.0</span>
+            <span className="text-md font-light">React Router v6.18.0</span>
             <span className="text-md font-light">react-scripts v5.0.1</span>
+            <span className="text-md font-light">react-cookie v6.1.1</span>
             <span className="text-md font-light">Serve v14.2.1</span>
             <span className="text-md font-light">TailwindCSS v3.3.5</span>
+            <span className="text-md font-light">Axios v1.6.2</span>
             <span className="text-md font-light">Flask v3.0.0</span>
           </div>
         </div>     
