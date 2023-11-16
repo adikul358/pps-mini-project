@@ -11,9 +11,6 @@ app.config['CORS_HEADERS'] = 'Content-Type'
 
 
 
-
-
-
 # Auth Endpoints ========================================
 
 
@@ -49,10 +46,6 @@ def sign_in():
         return "Account does not exist"
 
     return data
-
-
-
-
 
 
 
@@ -107,9 +100,6 @@ def withdraw():
         return "Account does not exist"
 
     return data
-
-
-
 
 
 
