@@ -13,7 +13,7 @@ function SignUp() {
 
   useEffect(_ => {
     if (!!cookie.accno) { navigate("/dashboard") }
-		axios.post("http://localhost:3001/signup", { accno })
+		axios.post(`${process.env.REACT_APP_API_HOST}/signup`, { accno })
 				.then(function (res) {
 					setAccno(res.data)
 				})

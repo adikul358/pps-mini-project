@@ -27,7 +27,7 @@ function Savings(props) {
 
   function submitAction() {
     if (withErr) { return 0 }
-    axios.post(`http://localhost:3001/${cat}`, { accno: cookie.accno, value: val })
+    axios.post(`${process.env.REACT_APP_API_HOST}/${cat}`, { accno: cookie.accno, value: val })
       .then(function (res) {
         setData(res.data)
         setOpenMod(false)

@@ -35,7 +35,7 @@ function LoanApplication(props) {
   }
 
   function submitAction() {
-    axios.post(`http://localhost:3001/loan`, { 
+    axios.post(`${process.env.REACT_APP_API_HOST}/loan`, { 
       accno: cookie.accno, 
       type: cat,
       value: val, 

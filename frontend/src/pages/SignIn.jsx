@@ -15,9 +15,9 @@ function SignIn() {
   }, [])
 
   function auth() {
-    axios.post("http://localhost:3001/signin", { accno })
+    axios.post(`${process.env.REACT_APP_API_HOST}/signin`, { accno })
       .then(function (res) {
-        if (res.data == "Account does not exist") {
+        if (res.data === "Account does not exist") {
           setAccnoErr(true)
         } else {
           setCookie("accno", accno)

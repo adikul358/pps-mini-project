@@ -10,8 +10,6 @@ import SignIn from "./pages/SignIn"
 import Dashboard from "./pages/Dashboard"
 import About from "./pages/About"
 
-
-
 const routes = [
     {
       path: "/",

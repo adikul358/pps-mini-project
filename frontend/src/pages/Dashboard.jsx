@@ -14,7 +14,7 @@ function Dashboard() {
 
   useEffect(_ => {
     if (!cookie.accno) { navigate("/") }
-    axios.post('http://localhost:3001/signin', {
+    axios.post(`${process.env.REACT_APP_API_HOST}/signin`, {
       accno: cookie.accno,
     })
     .then(function (res) {

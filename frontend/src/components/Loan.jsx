@@ -34,7 +34,7 @@ function Loan(props) {
   const [ val, setVal ] = useState("")
 
   function submitAction() {
-    axios.post(`http://localhost:3001/loanpayment`, { accno: cookie.accno, value: val, index })
+    axios.post(`${process.env.REACT_APP_API_HOST}/loanpayment`, { accno: cookie.accno, value: val, index })
       .then(function (res) {
         setData(res.data)
         setOpenMod(false)
